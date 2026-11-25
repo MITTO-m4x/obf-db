@@ -3,16 +3,17 @@
 # 🔍 RBX-Finder / ORC V2
 ### Universal Multi-Binary Analyzer & Offset Ledger
 
-[![Python Version](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20(Termux)-2EA44F?style=for-the-badge&logo=linux&logoColor=white)](#installation--setup)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Stdlib%20Only)-FF6F00?style=for-the-badge&logo=pypi&logoColor=white)](#features)
-[![Architecture](https://img.shields.io/badge/Arch-ARM64%20%7C%20x86__64-8A2BE2?style=for-the-badge&logo=arm&logoColor=white)](#features)
-[![GitHub Repo](https://img.shields.io/badge/GitHub-MITTO--m4x%2Fobf--db-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MITTO-m4x/obf-db/)
-[![Status](https://img.shields.io/badge/Release-ORC%20V2-00C853?style=for-the-badge)](#)
+![Python Version](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20(Termux)-2EA44F?style=for-the-badge&logo=linux&logoColor=white)
+![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Stdlib%20Only)-FF6F00?style=for-the-badge&logo=pypi&logoColor=white)
+![Architecture](https://img.shields.io/badge/Arch-ARM64%20%7C%20x86__64-8A2BE2?style=for-the-badge&logo=arm&logoColor=white)
+![GitHub Repo](https://img.shields.io/badge/GitHub-MITTO--m4x%2Fobf--db-181717?style=for-the-badge&logo=github&logoColor=white)
+![Status](https://img.shields.io/badge/Release-ORC%20V2-00C853?style=for-the-badge)
 
 **A unified, zero-dependency reverse engineering and binary analysis framework built to inspect ELF/APK binaries, recover exact function boundaries via `.eh_frame_hdr`, manage offset ledgers, and automate cross-tool reporting.**
 
-[Features](#-features) • [Installation](#-installation--setup) • [Quick Start](#-usage) • [Probe Engine](#-interactive-probe-engine) • [Ledger CLI](#-candidate-ledger-management) • [AI Integration](#-ai-assisted-development)
+🔗 **Repository URL:**
+https://github.com/MITTO-m4x/obf-db/
 
 </div>
 
@@ -68,7 +69,7 @@ python rbx_finder.py -i
 > ```
 
 #### Alternative: ZIP Installation
-1. Open the [GitHub Repository](https://github.com/MITTO-m4x/obf-db/).
+1. Open the repository URL: https://github.com/MITTO-m4x/obf-db/
 2. Click **Code → Download ZIP** and extract the archive.
 3. Open **PowerShell** or **CMD** inside the extracted folder.
 4. Run `python rbx_finder.py -i`.
@@ -412,7 +413,8 @@ python3 rbx_finder.py -i
 Developed by **MITTO & Olivia**  
 **RBX-Finder / ORC V2**
 
-[![GitHub](https://img.shields.io/badge/GitHub-MITTO--m4x%2Fobf--db-181717?style=flat-square&logo=github)](https://github.com/MITTO-m4x/obf-db/)
+**GitHub**
+https://github.com/MITTO-m4x/obf-db/
 
 *Analyze • Inspect • Document • Improve*
 
