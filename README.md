@@ -1,148 +1,117 @@
 # RBX-Finder / ORC V2 — Universal Multi-Binary Analyzer & Offset Ledger
 
-أداة هندسة عكسية وفحص شاملة موحدة تجمع كافة الأدوات السابقة (`elf_parser`, `header_generator`, `symbol_resolver`, `xref_engine`) في ملف واحد مستقل وقوي، مع دعم كامل للتحليل المتعدد للمكتبات، استخراج وفك ملفات الـ APK، فك تشفير جداول الدوال الدقيقة عبر `.eh_frame_hdr`، إدارة سجل المرشحين (Candidate Ledger)، محرك الاستعلام التفاعلي (Interactive Probe)، ومعالج أسئلة تفاعلي ذكي (Interactive Wizard).
+**RBX-Finder / ORC V2** is a standalone, high-performance reverse engineering and binary analysis framework built to unify binary parsing, symbol resolution, cross-reference (XRef) analysis, and offset management into a single cohesive tool. By integrating the capabilities of `elf_parser`, `header_generator`, `symbol_resolver`, and `xref_engine` with zero external dependencies, it provides a streamlined workflow for security researchers, reverse engineers, and dynamic instrumentation developers.
+
+🔗 **Official GitHub Repository:**  
+[https://github.com/MITTO-m4x/obf-db/](https://github.com/MITTO-m4x/obf-db/)
 
 ---
 
-## 🌟 الميزات الأساسية (Core Features)
+## 📥 Installation & Setup
 
-1. **فحص المجلدات المتعددة وملفات الـ APK مباشرة (Multi-Binary & APK Support)**:
-   - فحص مجلد يحتوي على عدة مكتبات (`libbacktrace-native.so`, `libdatastore_shared_counter.so`, `libimage_processing_util_jni.so`, `librenderscript-toolkit.so`, `libroblox.so`, `libsurface_util_jni.so`, `libtrampoline.so`, `libzstd-jni-1.5.7-6.so`).
-   - استخراج مباشر لملفات الـ APK تلقائياً في الذاكرة دون الحاجة لأدوات خارجية وفحص مكتباتها المعمارية (`arm64-v8a`, `x86_64`).
+The tool runs natively on **Python 3** with no third-party packages required. Clone the repository and launch it on your platform using the instructions below:
 
-2. **دقة حدود الدوال بنسبة 100% عبر `.eh_frame_hdr`**:
-   - تفكيك وقراءة جداول إطارات الاستثناءات DWARF/LSB مباشرة من الكومبايلر لاستخراج البدايات الحقيقية لأكثر من 213,000 دالة بدقة متناهية.
-
-3. **معالج إعداد تفاعلي ذكي (Interactive Questionnaire Wizard)**:
-   - عند تشغيل الأداة مباشرة بدون وسائط أو باستخدام خيار `-i`، يطرح المعالج 8 أسئلة تفصيلية لتحديد الهدف، المكتبة، الفلاتر، أنماط البايتات، هياكل البيانات، ومسارات التصدير بدقة.
-
-4. **دعم كامل ومتقدم لملف التواقيع `signatures.json`**:
-   - دعم البحث بالأنماط البايتية المتقدمة ذات النصف بايت والـ wildcards (مثل `4?` أو `??`).
-   - استخراج تلميحات هياكل البيانات (`struct_hints`) مثل إزاحات `Instance.children` و `TaskScheduler`.
-   - فلترة مخصصة بالكلمات المفتاحية عبر `--sig-filter` (مثل: `loadstring,resume,datamodel`).
-
-5. **نظام سجل المرشحين المتطور (Candidate Ledger Engine)**:
-   - تصنيف دقيق للثقة (`high`, `medium`, `low`) والحالات (`needs_review`, `confirmed`, `rejected`, `live`).
-   - ربط كل إزاحة وعنوان بسلسلة أدلة قطعية (`evidence`) مع توثيق البدائل المحتملة (`alternatives`).
-   - أدوات CLI مدمجة لمراجعة وتأكيد وتدقيق السجلات (`summary`, `review`, `mark`, `check`).
-
-6. **محرك التحقيق التفاعلي الفوري (Interactive Probe Engine)**:
-   - استعلام سريع عن النصوص، الأنماط، مراجع الـ XRef، وقوائم الدوال مع تحديد الدالة الحاضنة بدقة.
-
-7. **تصدير شامل لجميع بيئات التحليل (Multi-Format Export)**:
-   - `Profile.hpp`: ترويسة C++ جاهزة للاستخدام في المشاريع والمعدلات.
-   - `Profile_ledger.json`: سجل المرشحين الكامل للمراجعة والتدقيق.
-   - `Profile_frida.js`: سكربت Frida جاهز للـ Hooking ورصد الاستدعاءات الحية.
-   - `Profile_ghidra.py`: سكربت Python لبيئة Ghidra لإعادة تسمية الدوال وحقن الإشارات.
-   - `Profile_ida.py`: سكربت IDC/IDAPython لبيئة IDA Pro.
-   - `Profile_summary.md`: تقرير تحليلي وإحصائي كامل بتنسيق Markdown.
-   - `Profile.json`: البيانات الخام الكاملة للـ AST والرموز.
-
----
-
-## 🚀 طريقة الاستخدام السريعة (Quick Start)
-
-### 1. الوضع التفاعلي (Interactive Wizard Mode)
-لإطلاق المعالج التفاعلي ليقودك خطوة بخطوة:
+### 1. Android (via Termux)
+Open **Termux** and run the following commands to update packages, install Git and Python, and clone the repository:
 ```bash
-python3 rbx_finder.py
-# أو
+pkg update && pkg upgrade -y
+pkg install git python -y
+git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+cd obf-db
 python3 rbx_finder.py -i
-```
 
-### 2. فحص مجلد يحتوي على عدة مكتبات مع التصدير الكامل
-```bash
-python3 rbx_finder.py \
-  /path/to/extracted_libs/ \
-  --export-all /path/to/output/roblox_profile
-```
+> Note for Termux Users: To scan APK files or shared libraries located in your device's internal storage, grant storage permissions first via termux-setup-storage, then target paths under /sdcard/Download/....
+> 
+2. Linux (Ubuntu / Debian / Arch / Kali)
+Open your terminal and execute:
+sudo apt update && sudo apt install git python3 -y
+git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+cd obf-db
+chmod +x rbx_finder.py
+python3 rbx_finder.py -i
 
-### 3. فحص ملف APK مباشر مع تحديد مكتبة `libroblox.so` فقط
-```bash
-python3 rbx_finder.py \
-  /path/to/roblox.apk \
+3. Windows (Windows 10 / 11)
+ * Ensure Python 3 (with Add Python to PATH checked during installation) and Git are installed.
+ * Open Command Prompt (CMD) or PowerShell and run:
+git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+cd obf-db
+python rbx_finder.py -i
+
+🏗️ Core Architecture & Features
+ * In-Memory APK & Multi-Binary Scanning Engine:
+   Batch-analyze directories containing dozens of shared libraries (.so) simultaneously, or inspect .apk packages directly in memory to extract and analyze target architectures (arm64-v8a, x86_64) without manual extraction.
+ * 100% Function Boundary Precision via .eh_frame_hdr:
+   Parses DWARF / LSB exception frame unwind tables directly from compiler metadata to recover exact start and end boundaries for over 213,000+ functions.
+ * Candidate Ledger & Confidence Scoring System:
+   Automatically logs discovered addresses and offsets with confidence tiers (high, medium, low) and review states (needs_review, confirmed, rejected, live), backed by deterministic evidence chains (evidence) and fallback candidates (alternatives).
+ * Interactive Probe Engine:
+   Run instant command-line queries against ELF binaries to locate strings, wildcard byte patterns (e.g., 4?, ??), and XRefs while automatically resolving the enclosing parent function.
+ * Interactive Questionnaire Wizard:
+   Launching without arguments or with -i triggers a guided 8-step setup wizard to configure target paths, library filters, signature matching, struct_hints, and export formats.
+ * Multi-Environment Export Suite:
+   Generates 7 ready-to-use output artifacts in a single pass:
+   * Profile.hpp — Clean C++ header file ready for direct project integration.
+   * Profile_frida.js — Ready-to-run Frida script for dynamic hooking and runtime tracing.
+   * Profile_ghidra.py — Ghidra Python script for automated function renaming and annotation.
+   * Profile_ida.py — IDAPython script for symbol labeling inside IDA Pro.
+   * Profile_ledger.json — Structured candidate ledger for auditing and team review.
+   * Profile_summary.md — Human-readable Markdown statistical and analytical report.
+   * Profile.json — Complete raw AST and symbol dump.
+🚀 Usage Workflows
+1. Full APK Analysis Targeting a Specific Library
+python3 rbx_finder.py /path/to/target.apk \
   --lib libroblox.so \
-  --export-all /path/to/output/roblox_profile
-```
+  --export-all ./output/roblox_build
 
-### 4. الفحص المخصص عبر التواقيع والفلترة (`signatures.json`)
-```bash
-python3 rbx_finder.py \
-  /path/to/extracted_libs/ \
+2. Targeted Signature Scanning (signatures.json)
+python3 rbx_finder.py /path/to/libs_dir/ \
   --sig-path signatures.json \
   --sig-filter "loadstring,resume,datamodel,securityfiltercapabilities" \
-  --export-all /path/to/output/filtered_profile
-```
+  --export-all ./output/filtered_build
 
----
+3. Instant Queries via the Probe Engine
+# Search for a string and identify its enclosing function
+python3 rbx_finder.py probe libroblox.so string "Script Context"
 
-## 🔍 محرك التحقيق (Probe Engine)
+# Search for a byte pattern with wildcard support
+python3 rbx_finder.py probe libroblox.so pattern "FD 7B BE A9 ?? ?? ?? ??"
 
-يمكنك فحص أي مكتبة فورياً من سطر الأوامر دون الحاجة لفحص كامل:
+# Trace XRefs pointing to a specific address
+python3 rbx_finder.py probe libroblox.so xref 0x3A2B1C
 
-* **البحث عن نص وتحديد دالته الحاضنة:**
-  ```bash
-  python3 rbx_finder.py probe libroblox.so string "Script Context"
-  ```
+# List function entry points recovered from .eh_frame_hdr
+python3 rbx_finder.py probe libroblox.so functions --limit 25
 
-* **البحث عن نمط بايتات (مع دعم Wildcards):**
-  ```bash
-  python3 rbx_finder.py probe libroblox.so pattern "FD 7B BE A9 ?? ?? ?? ??"
-  ```
+4. Candidate Ledger Management & Auditing
+# Display statistical summary of confidence levels and review states
+python3 rbx_finder.py ledger summary ./output/roblox_build_ledger.json
 
-* **البحث عن مراجع XRef لعنوان معين:**
-  ```bash
-  python3 rbx_finder.py probe libroblox.so xref 0x3A2B1C
-  ```
+# Inspect candidates flagged for review
+python3 rbx_finder.py ledger review ./output/roblox_build_ledger.json
 
-* **استعراض بدايات الدوال المستخرجة من `.eh_frame_hdr`:**
-  ```bash
-  python3 rbx_finder.py probe libroblox.so functions --limit 20
-  ```
+# Confirm or reject a candidate with audit notes
+python3 rbx_finder.py ledger mark ./output/roblox_build_ledger.json \
+  --name loadstring \
+  --status confirmed \
+  --note "Verified via Ghidra decompilation" \
+  --by analyst_1
 
----
+# Validate ledger integrity and detect offset collisions
+python3 rbx_finder.py ledger check ./output/roblox_build_ledger.json
 
-## 📋 إدارة سجل المرشحين (Candidate Ledger)
-
-* **عرض ملخص إحصائي للسجل:**
-  ```bash
-  python3 rbx_finder.py ledger summary roblox_profile_ledger.json
-  ```
-
-* **مراجعة تفصيلية للمرشحين:**
-  ```bash
-  python3 rbx_finder.py ledger review roblox_profile_ledger.json
-  ```
-
-* **تأكيد أو رفض مرشح:**
-  ```bash
-  python3 rbx_finder.py ledger mark roblox_profile_ledger.json \
-    --name loadstring \
-    --status confirmed \
-    --note "Verified via Ghidra decompilation" \
-    --by c4
-  ```
-
-* **تدقيق سلامة السجل ومنع التعارضات:**
-  ```bash
-  python3 rbx_finder.py ledger check roblox_profile_ledger.json
-  ```
-
----
-
-## ⚙️ خيارات سطر الأوامر الكاملة (CLI Arguments)
-
-| الخيار | الوصف |
+⚙️ CLI Reference
+| Argument / Flag | Description |
 |---|---|
-| `target` | مسار ملف `.so`، أو مجلد مكتبات، أو ملف `.apk` |
-| `--mode` | وضع السرعة (`fast` افتراضي، `normal`, `deep`, `paranoid`) |
-| `--all-libs` | فحص كافة المكتبات في المجلد أو الأرشيف |
-| `--lib` | استهداف مكتبة معينة بالاسم فقط (مثل `libroblox.so`) |
-| `--sig-path` | تحديد مسار ملف `signatures.json` مخصص |
-| `--sig-filter` | فلترة أسماء التواقيع بفواصل (مثل `loadstring,resume`) |
-| `--no-patterns` | تعطيل فحص أنماط البايتات |
-| `--no-struct-hints` | تعطيل استخراج تلميحات هياكل البيانات |
-| `--min-len` | تحديد الحد الأدنى لطول النصوص الموسومة (الافتراضي: 4) |
-| `--export-all` | تصدير كافة الصيغ (`.hpp`, `_frida.js`, `_ghidra.py`, `_ida.py`, `_ledger.json`, `_summary.md`, `.json`) لبادئة محددة |
-| `--interactive`, `-i` | تشغيل المعالج التفاعلي خطوة بخطوة |
-| `--quiet` | كتم الرسائل والشعار وتشغيل الفحص الصامت |
+| target | Path to a .so binary, a directory of libraries, or an .apk file |
+| --mode | Analysis depth mode (fast [default], normal, deep, paranoid) |
+| --all-libs | Scan all libraries within the target directory or APK archive |
+| --lib | Restrict analysis to a specific library by name (e.g., libroblox.so) |
+| --sig-path | Path to a custom signatures.json file |
+| --sig-filter | Comma-separated list of signature names to filter |
+| --no-patterns | Disable byte-pattern scanning for faster execution |
+| --no-struct-hints | Disable structure offset inference (struct_hints) |
+| --min-len | Minimum character length for indexed strings (default: 4) |
+| --export-all | Export all 7 output formats using the specified file prefix |
+| --interactive, -i | Launch the step-by-step interactive setup wizard |
+| --quiet | Suppress banners and verbose logs for silent execution |
+
