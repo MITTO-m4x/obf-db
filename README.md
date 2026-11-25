@@ -1,89 +1,92 @@
-# RBX-Finder / ORC V2
-### Universal Multi-Binary Analyzer & Offset Ledger
+RBX-Finder / ORC V2
 
-> A lightweight, standalone Python framework for binary inspection, ELF metadata analysis, APK archive inspection, batch processing, and structured reporting.
+Universal Multi-Binary Analyzer & Offset Ledger
 
-**RBX-Finder / ORC V2** brings multiple analysis workflows together in a unified command-line application, designed to work across desktop platforms and Android.
+RBX-Finder / ORC V2 is a multi-binary analysis utility designed to inspect files, organize analysis results, and generate structured reports through an interactive interface.
 
----
-
-## ✨ Features
-
-- **Multi-Binary Analysis** — Process individual files or entire directories.
-- **APK Inspection** — Inspect archive contents and identify native libraries and ABI directories.
-- **ELF Analysis** — Examine headers, architecture, sections, segments, and available metadata.
-- **Batch Processing** — Analyze multiple supported files in one session.
-- **Interactive Wizard** — Guided configuration for users who prefer interactive workflows.
-- **Configurable Analysis** — Select analysis depth and optional inspection features.
-- **Structured Reports** — Generate organized JSON and Markdown reports.
-- **Candidate Ledger** — Organize findings, evidence, review status, and confidence.
-- **Pattern Recognition** — Optional configurable binary-pattern analysis.
-- **Cross-Platform** — Supports Windows, Linux, macOS, and Android through Termux.
-- **Zero Dependencies** — Designed around Python's standard library.
+Built with a focus on usability, portability, organized output, and efficient analysis workflows.
 
 ---
 
-## 📋 Requirements
+✨ Features
 
-- Python **3.9+**
-- Git
-- No additional Python packages required
+- Multi-Binary Support — Analyze multiple files in a single workflow.
+- APK Inspection — Inspect APK archives and discover contained files.
+- ELF Analysis — Examine ELF file metadata and structural information.
+- Batch Processing — Process multiple files or directories.
+- Interactive Interface — Guided analysis through an interactive CLI.
+- Analysis Modes — Different analysis profiles for varying workloads.
+- Structured Reports — Export analysis results into organized formats.
+- Candidate Ledger — Maintain a structured record of discovered results.
+- Cross-Platform — Supports Windows, Linux, macOS, and Android through Termux.
+- Lightweight — Designed to operate with minimal external dependencies.
 
 ---
 
-# 📥 Installation
+📦 Installation & Setup
 
-## 🪟 Windows
+Choose your platform and follow the instructions below.
 
-### Method 1 — Git
+---
 
-Install Python 3 and Git for Windows.
+🪟 Windows
 
-Open PowerShell:
+Requirements
 
-```powershell
+- Python 3.10+
+- Git (optional if downloading ZIP)
+
+1. Clone the Repository
+
 git clone https://github.com/MITTO-m4x/obf-db.git
+
+2. Navigate to the Project Directory
+
 cd obf-db
-python rbx_finder.py --help
 
-Launch interactive mode:
-
-python rbx_finder.py -i
-
-Method 2 — Download ZIP
-
-1. Open the repository:
-   https://github.com/MITTO-m4x/obf-db/
-2. Click Code → Download ZIP.
-3. Extract the archive.
-4. Open the extracted project folder.
-5. Open PowerShell or CMD inside the folder.
-
-Run:
+3. Start RBX-Finder
 
 python rbx_finder.py -i
 
-If Python is installed through the Windows launcher:
+If the "python" command is unavailable, try:
 
 py rbx_finder.py -i
+
+Alternative: ZIP Installation
+
+1. Open the GitHub repository.
+
+2. Download the repository as a ZIP archive.
+
+3. Extract the archive.
+
+4. Open PowerShell inside the extracted folder.
+
+5. Start the application:
+   
+   python rbx_finder.py -i
 
 ---
 
 🐧 Linux
 
-Supported distributions include Ubuntu, Debian, Kali, and other distributions with Python 3.
-
-Install the requirements:
+1. Update Package Lists
 
 sudo apt update
+
+2. Install Python and Git
+
 sudo apt install python3 git -y
 
-Clone the repository:
+3. Clone the Repository
 
 git clone https://github.com/MITTO-m4x/obf-db.git
+
+4. Enter the Project Directory
+
 cd obf-db
 
-Run:
+5. Launch the Application
 
 python3 rbx_finder.py -i
 
@@ -91,18 +94,23 @@ python3 rbx_finder.py -i
 
 🍎 macOS
 
-Install Requirements
+Requirements
 
-If Python 3 is not installed, install it using Homebrew:
+Python 3 and Git.
+
+1. Install Requirements
 
 brew install python git
 
-Clone the Repository
+2. Clone the Repository
 
 git clone https://github.com/MITTO-m4x/obf-db.git
+
+3. Enter the Project Directory
+
 cd obf-db
 
-Launch
+4. Launch RBX-Finder
 
 python3 rbx_finder.py -i
 
@@ -110,32 +118,35 @@ python3 rbx_finder.py -i
 
 📱 Android — Termux
 
-Install the required packages:
+1. Update Packages
 
-pkg update -y
-pkg upgrade -y
+pkg update -y && pkg upgrade -y
+
+2. Install Python and Git
+
 pkg install python git -y
 
-Grant storage access:
+3. Enable Shared Storage
 
 termux-setup-storage
 
-Clone the project:
+Grant storage permission when prompted.
+
+4. Clone the Repository
 
 git clone https://github.com/MITTO-m4x/obf-db.git
+
+5. Navigate to the Project
+
 cd obf-db
 
-Launch the application:
+6. Launch the Application
 
-python3 rbx_finder.py -i
+python rbx_finder.py -i
 
-Files located in shared storage can usually be accessed through:
+Shared Storage Location
 
 /storage/emulated/0/Download/
-
-Example:
-
-/storage/emulated/0/Download/sample.apk
 
 ---
 
@@ -143,220 +154,208 @@ Example:
 
 Interactive Mode
 
-Launch the interactive wizard:
+Launch the interactive interface:
 
-python3 rbx_finder.py -i
+python rbx_finder.py -i
 
-The wizard guides you through input selection, analysis configuration, filtering, and output options.
+Analyze a File
+
+python rbx_finder.py file.so
+
+Analyze a Directory
+
+python rbx_finder.py ./libs/
+
+Inspect an APK
+
+python rbx_finder.py application.apk
+
+Export Results
+
+python rbx_finder.py input --export-all ./output/profile
 
 ---
 
-Command-Line Mode
+⚙️ Analysis Modes
 
-Run the program directly with a supported input:
-
-python3 rbx_finder.py <target>
-
-Examples of targets include:
-
-library.so
-application.apk
-./libraries/
-
----
-
-Analysis Modes
-
-Choose an analysis mode according to your requirements:
+RBX-Finder provides different analysis profiles intended to balance processing time, detail, and resource usage.
 
 Mode| Description
-"fast"| Quick inspection
-"normal"| Standard analysis
-"deep"| Extended inspection
-"paranoid"| Additional validation
+Fast| Quick analysis with reduced processing
+Normal| Balanced analysis for everyday use
+Deep| More extensive analysis
+Paranoid| Intensive analysis profile
 
-Example:
-
-python3 rbx_finder.py input --mode normal
+Mode availability and exact behavior depend on the current implementation.
 
 ---
 
-Output & Reports
-
-The application can generate structured reports for reviewing and organizing analysis results.
-
-Depending on the implemented export options, reports may include:
-
-File| Description
-".json"| Structured machine-readable data
-".md"| Detailed Markdown summary
-".txt"| Plain-text report
-".csv"| Tabular data
-"_ledger.json"| Organized review records
-
-Example output directory:
-
-output/
-├── profile.json
-├── profile_summary.md
-├── profile.txt
-├── profile.csv
-└── profile_ledger.json
-
----
-
-⚙️ Command-Line Options
+🧰 Command-Line Options
 
 Option| Description
-"target"| Input file, archive, or directory
+"target"| Input file or directory
 "--mode"| Select analysis mode
-"--all-libs"| Process multiple supported libraries
-"--lib"| Select files by filename
-"--sig-path"| Specify a configuration file
-"--sig-filter"| Filter configured analysis rules
-"--no-patterns"| Disable optional pattern analysis
-"--no-struct-hints"| Disable optional structural hints
-"--min-len"| Set the minimum string length
-"--export-all"| Generate supported output reports
-"-i", "--interactive"| Launch the interactive wizard
-"--quiet"| Reduce informational output
+"--all-libs"| Process available library files
+"--lib"| Specify a library selection
+"--sig-path"| Specify a signature source
+"--sig-filter"| Filter signature results
+"--no-patterns"| Disable pattern analysis
+"--no-struct-hints"| Disable structural hints
+"--min-len"| Configure minimum length threshold
+"--export-all"| Export generated analysis results
+"-i", "--interactive"| Launch interactive mode
+"--quiet"| Reduce console output
 "-h", "--help"| Display command-line help
 
-View the complete available options:
+For the most accurate list of supported options, run:
 
-python3 rbx_finder.py --help
-
-Available arguments may depend on the current project version.
+python rbx_finder.py --help
 
 ---
 
-📊 Analysis Workflow
+📊 Output & Reports
 
-A typical workflow consists of:
+Analysis results may be organized into multiple output formats depending on the selected workflow.
 
-1. Select a supported input file or directory.
-2. Validate the input and file format.
-3. Collect available metadata.
-4. Perform the selected analysis.
-5. Organize findings and evidence.
-6. Generate reports.
-7. Review the results.
+Supported Report Formats
 
-Automated findings may be incomplete and should not automatically be treated as verified results.
+- JSON — Structured machine-readable data.
+- Markdown — Readable analysis summaries.
+- TXT — Plain-text reports.
+- CSV — Tabular data.
+- Ledger — Organized candidate records.
+
+Example Output Structure
+
+output/
+├── analysis.json
+├── analysis.md
+├── analysis.txt
+├── analysis.csv
+└── candidate_ledger.json
+
+Actual filenames and output directories may vary depending on configuration.
 
 ---
 
-🤖 AI Assistant Integration
+🤖 AI-Assisted Development
 
-RBX-Finder can be used alongside AI coding assistants that support access to project files and terminal commands.
+You can use an AI coding assistant to help understand, document, debug, and improve the project.
 
-Examples include:
+Recommended Workflow
 
-- ChatGPT
-- Claude
-- Gemini
-- Cursor
-- GitHub Copilot
-- Other coding assistants
+1. Open the repository in your coding environment.
+2. Allow the assistant to inspect the project files.
+3. Provide the prompt below.
+4. Review suggested changes before applying them.
 
-Connecting an AI Assistant
+AI Assistant Prompt
 
-1. Open the project directory in your AI coding environment.
-2. Allow the assistant to access the project files.
-3. Provide the project instructions below.
-4. Ask the assistant to explain the code, review errors, document features, or help with development.
-5. Verify suggested changes before applying them.
+You are assisting with the RBX-Finder / ORC V2 project.
 
-AI Project Prompt
+First, inspect the repository structure, source files,
+and README documentation.
 
-Copy this prompt into your AI assistant:
+Understand the existing architecture and identify
+the actual implemented features.
 
-You are an AI development assistant working with the
-RBX-Finder / ORC V2 project.
+Help with:
 
-First, inspect the repository structure and read README.md
-and the main Python source file.
+- Code understanding
+- Debugging and error analysis
+- Documentation improvements
+- Code quality
+- Performance optimization
+- Compatibility improvements
+- Refactoring
+- Improving CLI usability
+- Identifying potential bugs
 
-Understand the implemented features, supported arguments,
-dependencies, operating-system compatibility, and limitations.
+Rules:
 
-Do not invent commands, functions, or capabilities.
-Verify command-line options against the actual source code.
-
-When assisting:
-- Explain findings clearly.
-- Identify bugs and compatibility issues.
-- Suggest maintainable Python improvements.
-- Preserve existing project behavior unless changes are requested.
+- Do not invent features that are not implemented.
+- Verify claims against the actual source code.
+- Preserve existing functionality unless changes
+  are explicitly requested.
 - Avoid unnecessary dependencies.
-- Provide complete code when a file replacement is requested.
-- Clearly distinguish confirmed information from assumptions.
-- Test changes where possible.
-- Document new options and behavior accurately.
+- Explain important changes clearly.
+- Distinguish verified facts from assumptions.
+- Never execute unknown binaries during analysis.
+- Treat input files as untrusted data.
 
-Treat all analyzed files as untrusted input.
-Do not execute analyzed binaries.
+When modifications are requested, explain the changes
+and provide complete updated files when appropriate.
+
+---
+
+🔄 Updating
+
+To update your local repository:
+
+1. Enter the Project Directory
+
+cd obf-db
+
+2. Pull the Latest Changes
+
+git pull
+
+3. Restart the Application
+
+python rbx_finder.py -i
 
 ---
 
 🛠️ Troubleshooting
 
-Python Not Found
+Python Is Not Recognized
 
-Check your installation:
+Install Python and make sure it is available through your system PATH.
 
-python --version
+On Windows, try:
 
-Or:
+py rbx_finder.py -i
 
-python3 --version
+Git Is Not Recognized
 
-Windows:
-
-py --version
+Install Git and reopen your terminal.
 
 Permission Issues
 
-On Termux:
+Check that your current user has permission to access the project directory.
+
+Termux Storage Problems
+
+Run:
 
 termux-setup-storage
 
-On Linux/macOS, verify that you have permission to read the input files and write to the output directory.
+Then grant the required Android storage permissions.
 
-Repository Already Exists
+Application Errors
 
-Navigate to the existing project:
+Run the application from the terminal and review the error output.
 
-cd obf-db
-git pull
+For additional information:
 
-Command Not Recognized
-
-Display the supported arguments:
-
-python3 rbx_finder.py --help
+python rbx_finder.py --help
 
 ---
 
-🔒 Reliability
+📌 Notes
 
-- Input validation
-- Error handling
-- Structured output
-- File integrity checks
-- Cross-platform compatibility
-- Conservative confidence classification
-- Safe handling of unsupported formats
-
-Results depend on the input file, available metadata, architecture, and analysis methods.
+- Analysis results may vary depending on file format, architecture, and available information.
+- Automated analysis does not guarantee complete or accurate results.
+- Some features may behave differently depending on the operating system.
+- Always verify generated results before relying on them.
 
 ---
 
-📌 Disclaimer
+⚖️ Disclaimer
 
-RBX-Finder / ORC V2 is intended for educational purposes, software diagnostics, file-format research, and authorized analysis.
+This project is intended for educational purposes, software diagnostics, file-format research, and authorized analysis.
 
-Users are responsible for ensuring that their activities comply with applicable laws, licenses, and permissions.
+Users are responsible for complying with applicable laws, licenses, and permissions.
 
 Automated analysis does not guarantee complete or accurate results.
 
@@ -368,15 +367,10 @@ Developed by MITTO & Olivia
 
 RBX-Finder / ORC V2
 
-GitHub Repository:
+GitHub
 
 https://github.com/MITTO-m4x/obf-db/
 
 ---
 
-<p align="center">RBX-Finder / ORC V2
-
-Analyze • Inspect • Document • Improve
-
-</p>
-```
+<p align="center">Analyze • Inspect • Document • Improve</p>
