@@ -13,7 +13,7 @@
 **A unified, zero-dependency reverse engineering and binary analysis framework built to inspect ELF/APK binaries, recover exact function boundaries via `.eh_frame_hdr`, manage offset ledgers, and automate cross-tool reporting.**
 
 🔗 **Repository URL:**
-https://github.com/MITTO-m4x/obf-db/
+[https://github.com/MITTO-m4x/obf-db/](https://github.com/MITTO-m4x/obf-db/)
 
 </div>
 
@@ -51,7 +51,7 @@ Choose your platform below and follow the setup steps:
 
 #### 1. Clone the Repository
 ```powershell
-git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+git clone https://github.com/MITTO-m4x/obf-db.git
 ```
 
 #### 2. Navigate to the Project Directory
@@ -69,7 +69,7 @@ python rbx_finder.py -i
 > ```
 
 #### Alternative: ZIP Installation
-1. Open the repository URL: https://github.com/MITTO-m4x/obf-db/
+1. Open the repository URL: [https://github.com/MITTO-m4x/obf-db/](https://github.com/MITTO-m4x/obf-db/)
 2. Click **Code → Download ZIP** and extract the archive.
 3. Open **PowerShell** or **CMD** inside the extracted folder.
 4. Run `python rbx_finder.py -i`.
@@ -91,7 +91,7 @@ sudo apt install python3 git -y
 
 #### 3. Clone the Repository
 ```bash
-git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+git clone https://github.com/MITTO-m4x/obf-db.git
 ```
 
 #### 4. Enter the Project Directory
@@ -119,7 +119,7 @@ brew install python git
 
 #### 2. Clone the Repository
 ```bash
-git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+git clone https://github.com/MITTO-m4x/obf-db.git
 ```
 
 #### 3. Enter the Project Directory
@@ -155,7 +155,7 @@ termux-setup-storage
 
 #### 4. Clone the Repository
 ```bash
-git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+git clone https://github.com/MITTO-m4x/obf-db.git
 ```
 
 #### 5. Navigate to the Project
@@ -414,7 +414,7 @@ Developed by **MITTO & Olivia**
 **RBX-Finder / ORC V2**
 
 **GitHub**
-https://github.com/MITTO-m4x/obf-db/
+[https://github.com/MITTO-m4x/obf-db/](https://github.com/MITTO-m4x/obf-db/)
 
 *Analyze • Inspect • Document • Improve*
 
