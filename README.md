@@ -1,376 +1,419 @@
-RBX-Finder / ORC V2
+<div align="center">
 
-Universal Multi-Binary Analyzer & Offset Ledger
+# 🔍 RBX-Finder / ORC V2
+### Universal Multi-Binary Analyzer & Offset Ledger
 
-RBX-Finder / ORC V2 is a multi-binary analysis utility designed to inspect files, organize analysis results, and generate structured reports through an interactive interface.
+[![Python Version](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS%20%7C%20Android%20(Termux)-2EA44F?style=for-the-badge&logo=linux&logoColor=white)](#installation--setup)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero%20(Stdlib%20Only)-FF6F00?style=for-the-badge&logo=pypi&logoColor=white)](#features)
+[![Architecture](https://img.shields.io/badge/Arch-ARM64%20%7C%20x86__64-8A2BE2?style=for-the-badge&logo=arm&logoColor=white)](#features)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-MITTO--m4x%2Fobf--db-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/MITTO-m4x/obf-db/)
+[![Status](https://img.shields.io/badge/Release-ORC%20V2-00C853?style=for-the-badge)](#)
 
-Built with a focus on usability, portability, organized output, and efficient analysis workflows.
+**A unified, zero-dependency reverse engineering and binary analysis framework built to inspect ELF/APK binaries, recover exact function boundaries via `.eh_frame_hdr`, manage offset ledgers, and automate cross-tool reporting.**
 
----
+[Features](#-features) • [Installation](#-installation--setup) • [Quick Start](#-usage) • [Probe Engine](#-interactive-probe-engine) • [Ledger CLI](#-candidate-ledger-management) • [AI Integration](#-ai-assisted-development)
 
-✨ Features
-
-- Multi-Binary Support — Analyze multiple files in a single workflow.
-- APK Inspection — Inspect APK archives and discover contained files.
-- ELF Analysis — Examine ELF file metadata and structural information.
-- Batch Processing — Process multiple files or directories.
-- Interactive Interface — Guided analysis through an interactive CLI.
-- Analysis Modes — Different analysis profiles for varying workloads.
-- Structured Reports — Export analysis results into organized formats.
-- Candidate Ledger — Maintain a structured record of discovered results.
-- Cross-Platform — Supports Windows, Linux, macOS, and Android through Termux.
-- Lightweight — Designed to operate with minimal external dependencies.
+</div>
 
 ---
 
-📦 Installation & Setup
+## 📖 Overview
 
-Choose your platform and follow the instructions below.
+**RBX-Finder / ORC V2** consolidates legacy binary analysis workflows (`elf_parser`, `header_generator`, `symbol_resolver`, and `xref_engine`) into a single, portable, self-contained Python engine. Built with a focus on **usability, portability, deterministic accuracy, and structured reporting**, it requires **no external third-party packages** and runs seamlessly across desktop and mobile environments.
 
 ---
 
-🪟 Windows
+## ✨ Features
 
-Requirements
+- 📦 **Multi-Binary & Direct APK Support** — Batch-process entire directories of shared libraries (`.so`) or inspect `.apk` archives directly in memory (`arm64-v8a`, `x86_64`) without manual extraction.
+- 🎯 **`.eh_frame_hdr` Function Boundary Recovery** — Decodes compiler-generated DWARF/LSB exception unwind tables to recover exact function entry points and boundaries.
+- 🧭 **Interactive Setup Wizard (`-i`)** — Guided 8-step interactive CLI questionnaire to configure targets, filters, analysis modes, and export formats without memorizing flags.
+- 🧬 **Advanced Signature & Pattern Engine (`signatures.json`)** — Supports full-byte wildcards (`??`), nibble-level masks (`4?`, `?F`), keyword filtering (`--sig-filter`), and structural offset inference (`struct_hints`).
+- 🔎 **Instant Interactive Probe Engine** — Query strings, wildcard byte patterns, XRefs, and function tables on the fly with automatic parent-function resolution.
+- 📋 **Candidate Ledger & Confidence Scoring** — Tracks discovered offsets with confidence levels (`high`, `medium`, `low`), review statuses (`needs_review`, `confirmed`, `rejected`, `live`), evidence chains, and fallback alternatives.
+- 📤 **Multi-Format Export Suite** — Generates synchronized reports and scripts across C++, Python, JavaScript, Markdown, JSON, TXT, and CSV.
+- 🌍 **Cross-Platform & Lightweight** — Runs natively on **Windows, Linux, macOS, and Android (Termux)** using only Python's standard library.
 
-- Python 3.10+
-- Git (optional if downloading ZIP)
+---
 
-1. Clone the Repository
+## 📦 Installation & Setup
 
-git clone https://github.com/MITTO-m4x/obf-db.git
+Choose your platform below and follow the setup steps:
 
-2. Navigate to the Project Directory
+<details open>
+<summary><b>🪟 Windows (Windows 10 / 11)</b></summary>
 
+#### Requirements
+- **Python 3.10+** (Ensure **"Add Python to PATH"** is checked during installation)
+- **Git** (optional if downloading via ZIP)
+
+#### 1. Clone the Repository
+```powershell
+git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+```
+
+#### 2. Navigate to the Project Directory
+```powershell
 cd obf-db
+```
 
-3. Start RBX-Finder
-
+#### 3. Start RBX-Finder
+```powershell
 python rbx_finder.py -i
+```
+> **Tip:** If the `python` command is unavailable, use the Windows Python Launcher:
+> ```powershell
+> py rbx_finder.py -i
+> ```
 
-If the "python" command is unavailable, try:
+#### Alternative: ZIP Installation
+1. Open the [GitHub Repository](https://github.com/MITTO-m4x/obf-db/).
+2. Click **Code → Download ZIP** and extract the archive.
+3. Open **PowerShell** or **CMD** inside the extracted folder.
+4. Run `python rbx_finder.py -i`.
 
-py rbx_finder.py -i
+</details>
 
-Alternative: ZIP Installation
+<details>
+<summary><b>🐧 Linux (Ubuntu / Debian / Kali / Arch)</b></summary>
 
-1. Open the GitHub repository.
-
-2. Download the repository as a ZIP archive.
-
-3. Extract the archive.
-
-4. Open PowerShell inside the extracted folder.
-
-5. Start the application:
-   
-   python rbx_finder.py -i
-
----
-
-🐧 Linux
-
-1. Update Package Lists
-
+#### 1. Update Package Lists
+```bash
 sudo apt update
+```
 
-2. Install Python and Git
-
+#### 2. Install Python and Git
+```bash
 sudo apt install python3 git -y
+```
 
-3. Clone the Repository
+#### 3. Clone the Repository
+```bash
+git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+```
 
-git clone https://github.com/MITTO-m4x/obf-db.git
-
-4. Enter the Project Directory
-
+#### 4. Enter the Project Directory
+```bash
 cd obf-db
+```
 
-5. Launch the Application
-
+#### 5. Launch the Application
+```bash
 python3 rbx_finder.py -i
+```
 
----
+</details>
 
-🍎 macOS
+<details>
+<summary><b>🍎 macOS</b></summary>
 
-Requirements
+#### Requirements
+- Homebrew, Python 3, and Git.
 
-Python 3 and Git.
-
-1. Install Requirements
-
+#### 1. Install Requirements
+```bash
 brew install python git
+```
 
-2. Clone the Repository
+#### 2. Clone the Repository
+```bash
+git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+```
 
-git clone https://github.com/MITTO-m4x/obf-db.git
-
-3. Enter the Project Directory
-
+#### 3. Enter the Project Directory
+```bash
 cd obf-db
+```
 
-4. Launch RBX-Finder
-
+#### 4. Launch RBX-Finder
+```bash
 python3 rbx_finder.py -i
+```
 
----
+</details>
 
-📱 Android — Termux
+<details>
+<summary><b>📱 Android — Termux</b></summary>
 
-1. Update Packages
-
+#### 1. Update Packages
+```bash
 pkg update -y && pkg upgrade -y
+```
 
-2. Install Python and Git
-
+#### 2. Install Python and Git
+```bash
 pkg install python git -y
+```
 
-3. Enable Shared Storage
-
+#### 3. Enable Shared Storage
+```bash
 termux-setup-storage
+```
+> Grant storage permission when prompted by Android.
 
-Grant storage permission when prompted.
+#### 4. Clone the Repository
+```bash
+git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+```
 
-4. Clone the Repository
-
-git clone https://github.com/MITTO-m4x/obf-db.git
-
-5. Navigate to the Project
-
+#### 5. Navigate to the Project
+```bash
 cd obf-db
+```
 
-6. Launch the Application
+#### 6. Launch the Application
+```bash
+python3 rbx_finder.py -i
+```
 
-python rbx_finder.py -i
+> **Shared Storage Path:** Access files in your phone's Downloads folder via `/storage/emulated/0/Download/` or `/sdcard/Download/`.
 
-Shared Storage Location
-
-/storage/emulated/0/Download/
-
----
-
-🚀 Usage
-
-Interactive Mode
-
-Launch the interactive interface:
-
-python rbx_finder.py -i
-
-Analyze a File
-
-python rbx_finder.py file.so
-
-Analyze a Directory
-
-python rbx_finder.py ./libs/
-
-Inspect an APK
-
-python rbx_finder.py application.apk
-
-Export Results
-
-python rbx_finder.py input --export-all ./output/profile
+</details>
 
 ---
 
-⚙️ Analysis Modes
+## 🚀 Usage
 
-RBX-Finder provides different analysis profiles intended to balance processing time, detail, and resource usage.
+### Interactive Wizard Mode
+Launch the guided step-by-step interactive CLI:
+```bash
+python3 rbx_finder.py -i
+```
 
-Mode| Description
-Fast| Quick analysis with reduced processing
-Normal| Balanced analysis for everyday use
-Deep| More extensive analysis
-Paranoid| Intensive analysis profile
+### Analyze a Single Binary
+```bash
+python3 rbx_finder.py file.so
+```
 
-Mode availability and exact behavior depend on the current implementation.
+### Analyze a Directory of Libraries
+```bash
+python3 rbx_finder.py ./libs/
+```
 
----
+### Inspect an APK Directly (Targeting a Specific Library)
+```bash
+python3 rbx_finder.py application.apk --lib libroblox.so
+```
 
-🧰 Command-Line Options
-
-Option| Description
-"target"| Input file or directory
-"--mode"| Select analysis mode
-"--all-libs"| Process available library files
-"--lib"| Specify a library selection
-"--sig-path"| Specify a signature source
-"--sig-filter"| Filter signature results
-"--no-patterns"| Disable pattern analysis
-"--no-struct-hints"| Disable structural hints
-"--min-len"| Configure minimum length threshold
-"--export-all"| Export generated analysis results
-"-i", "--interactive"| Launch interactive mode
-"--quiet"| Reduce console output
-"-h", "--help"| Display command-line help
-
-For the most accurate list of supported options, run:
-
-python rbx_finder.py --help
+### Targeted Signature Scan & Full Export
+```bash
+python3 rbx_finder.py ./libs/ \
+  --sig-path signatures.json \
+  --sig-filter "loadstring,resume,datamodel" \
+  --export-all ./output/profile
+```
 
 ---
 
-📊 Output & Reports
+## 🔍 Interactive Probe Engine
 
-Analysis results may be organized into multiple output formats depending on the selected workflow.
+Run instant, targeted queries on any `.so` binary without executing a full profile scan:
 
-Supported Report Formats
+```bash
+# Locate a string and resolve its enclosing parent function
+python3 rbx_finder.py probe libroblox.so string "Script Context"
 
-- JSON — Structured machine-readable data.
-- Markdown — Readable analysis summaries.
-- TXT — Plain-text reports.
-- CSV — Tabular data.
-- Ledger — Organized candidate records.
+# Search for a byte pattern (supports ?? and nibble wildcards like 4?)
+python3 rbx_finder.py probe libroblox.so pattern "FD 7B BE A9 ?? ?? ?? ??"
 
-Example Output Structure
+# Trace cross-references (XRefs) to a virtual address
+python3 rbx_finder.py probe libroblox.so xref 0x3A2B1C
 
+# List function entry points recovered from .eh_frame_hdr
+python3 rbx_finder.py probe libroblox.so functions --limit 25
+```
+
+---
+
+## 📋 Candidate Ledger Management
+
+Audit, verify, and maintain discovered offsets using the built-in `ledger` subcommands:
+
+```bash
+# Display statistical summary of confidence tiers and review states
+python3 rbx_finder.py ledger summary ./output/profile_ledger.json
+
+# Review candidates flagged for verification
+python3 rbx_finder.py ledger review ./output/profile_ledger.json
+
+# Confirm or reject a candidate with reviewer notes
+python3 rbx_finder.py ledger mark ./output/profile_ledger.json \
+  --name loadstring \
+  --status confirmed \
+  --note "Verified via static disassembly" \
+  --by MITTO
+
+# Validate ledger integrity and check for address/offset conflicts
+python3 rbx_finder.py ledger check ./output/profile_ledger.json
+```
+
+---
+
+## ⚙️ Analysis Modes
+
+RBX-Finder provides four analysis profiles to balance execution speed, depth, and resource usage:
+
+| Mode | Description |
+| :--- | :--- |
+| `fast` | Quick analysis with reduced processing *(Default)* |
+| `normal` | Balanced analysis for standard everyday workflows |
+| `deep` | Extensive cross-reference and pattern analysis |
+| `paranoid` | Intensive, exhaustive analysis profile |
+
+> *Mode availability and exact behavior depend on the current implementation.*
+
+---
+
+## 🧰 Command-Line Options
+
+| Option | Description |
+| :--- | :--- |
+| `target` | Input `.so` file, directory of libraries, or `.apk` archive |
+| `--mode` | Select analysis mode (`fast`, `normal`, `deep`, `paranoid`) |
+| `--all-libs` | Process all available library files in the target directory or APK |
+| `--lib` | Restrict analysis to a specific library (e.g., `libroblox.so`) |
+| `--sig-path` | Specify path to a custom `signatures.json` file |
+| `--sig-filter` | Filter signature results using comma-separated keywords |
+| `--no-patterns` | Disable byte-pattern scanning |
+| `--no-struct-hints` | Disable structural offset inference (`struct_hints`) |
+| `--min-len` | Configure minimum character length threshold for strings (default: `4`) |
+| `--export-all` | Export generated analysis results across all supported formats |
+| `-i`, `--interactive` | Launch the step-by-step interactive wizard mode |
+| `--quiet` | Suppress banners and verbose console output |
+| `-h`, `--help` | Display command-line help message |
+
+For the most accurate list of supported options in your build, run:
+```bash
+python3 rbx_finder.py --help
+```
+
+---
+
+## 📊 Output & Reports
+
+Analysis results can be exported into multiple synchronized formats depending on your workflow:
+
+### Supported Report & Integration Formats
+- **C++ Header (`.hpp`)** — Ready-to-include definitions for native projects.
+- **Candidate Ledger (`_ledger.json`)** — Organized candidate records with confidence scores and evidence chains.
+- **Frida Script (`_frida.js`)** — Instrumentation template for runtime hooking and tracing.
+- **Ghidra Script (`_ghidra.py`)** — Automated symbol renaming and annotation script for Ghidra.
+- **IDA Script (`_ida.py`)** — IDAPython symbol labeling script for IDA Pro.
+- **Markdown (`_summary.md`)** — Human-readable analytical and statistical summary.
+- **JSON / TXT / CSV** — Structured machine-readable data, plain-text logs, and tabular exports.
+
+### Example Output Structure
+```text
 output/
-├── analysis.json
-├── analysis.md
-├── analysis.txt
-├── analysis.csv
-└── candidate_ledger.json
-
-Actual filenames and output directories may vary depending on configuration.
+├── profile.hpp
+├── profile.json
+├── profile_ledger.json
+├── profile_summary.md
+├── profile_frida.js
+├── profile_ghidra.py
+└── profile_ida.py
+```
+> *Actual filenames and output directories may vary depending on CLI flags and configuration.*
 
 ---
 
-🤖 AI-Assisted Development
+## 🤖 AI-Assisted Development & Agent Integration
 
-You can use an AI coding assistant to help understand, document, debug, and improve the project.
+You can connect **RBX-Finder / ORC V2** with AI coding assistants (such as **Claude Code**, **Cursor**, **Aider**, **Gemini CLI**, or **GitHub Copilot**) to inspect the codebase, audit ledger reports, debug issues, and improve the tool safely.
 
-Recommended Workflow
+### Recommended Workflow
+1. Open the `obf-db` repository in your AI-enabled editor or terminal agent.
+2. Allow the assistant to inspect the project structure and source files.
+3. Provide the system prompt below to enforce strict, evidence-based engineering rules.
+4. Review all suggested diffs and changes before applying them.
 
-1. Open the repository in your coding environment.
-2. Allow the assistant to inspect the project files.
-3. Provide the prompt below.
-4. Review suggested changes before applying them.
+### 📋 Copy-Paste AI Assistant Prompt
 
-AI Assistant Prompt
-
-You are assisting with the RBX-Finder / ORC V2 project.
-
-First, inspect the repository structure, source files,
-and README documentation.
-
-Understand the existing architecture and identify
-the actual implemented features.
+```text
+You are assisting with the RBX-Finder / ORC V2 project. First, inspect the repository structure, source files, and README documentation. Understand the existing architecture and identify the actual implemented features.
 
 Help with:
-
-- Code understanding
+- Code understanding & architectural documentation
 - Debugging and error analysis
-- Documentation improvements
-- Code quality
-- Performance optimization
-- Compatibility improvements
-- Refactoring
-- Improving CLI usability
-- Identifying potential bugs
+- Code quality, refactoring, and performance optimization
+- Cross-platform compatibility improvements (Windows, Linux, macOS, Termux)
+- Improving CLI usability and reporting formats
+- Identifying potential bugs and edge cases
 
 Rules:
-
 - Do not invent features that are not implemented.
-- Verify claims against the actual source code.
-- Preserve existing functionality unless changes
-  are explicitly requested.
-- Avoid unnecessary dependencies.
-- Explain important changes clearly.
+- Verify all claims against the actual source code.
+- Preserve existing functionality unless changes are explicitly requested.
+- Avoid unnecessary external dependencies (keep stdlib-only compatibility).
+- Explain important changes clearly and concisely.
 - Distinguish verified facts from assumptions.
 - Never execute unknown binaries during analysis.
-- Treat input files as untrusted data.
+- Treat all input files as untrusted data.
 
-When modifications are requested, explain the changes
-and provide complete updated files when appropriate.
+When modifications are requested, explain the changes and provide complete updated files when appropriate.
+```
 
 ---
 
-🔄 Updating
+## 🔄 Updating
 
-To update your local repository:
+To pull the latest updates from GitHub:
 
-1. Enter the Project Directory
-
+```bash
+# 1. Enter the project directory
 cd obf-db
 
-2. Pull the Latest Changes
-
+# 2. Pull the latest changes
 git pull
 
-3. Restart the Application
-
-python rbx_finder.py -i
-
----
-
-🛠️ Troubleshooting
-
-Python Is Not Recognized
-
-Install Python and make sure it is available through your system PATH.
-
-On Windows, try:
-
-py rbx_finder.py -i
-
-Git Is Not Recognized
-
-Install Git and reopen your terminal.
-
-Permission Issues
-
-Check that your current user has permission to access the project directory.
-
-Termux Storage Problems
-
-Run:
-
-termux-setup-storage
-
-Then grant the required Android storage permissions.
-
-Application Errors
-
-Run the application from the terminal and review the error output.
-
-For additional information:
-
-python rbx_finder.py --help
+# 3. Restart the application
+python3 rbx_finder.py -i
+```
 
 ---
 
-📌 Notes
+## 🛠️ Troubleshooting
 
-- Analysis results may vary depending on file format, architecture, and available information.
-- Automated analysis does not guarantee complete or accurate results.
-- Some features may behave differently depending on the operating system.
-- Always verify generated results before relying on them.
+<details>
+<summary><b>Click to expand common troubleshooting tips</b></summary>
 
----
+- **`python` is not recognized:**  
+  Install Python 3.10+ and ensure it is added to your system `PATH`. On Windows, try `py rbx_finder.py -i`.
+- **`git` is not recognized:**  
+  Install Git for your OS and restart your terminal session.
+- **Permission issues:**  
+  Verify that your user account has read/write permissions for the `obf-db` directory and target output folder.
+- **Termux storage access denied:**  
+  Run `termux-setup-storage` and accept the Android storage permission prompt before scanning files in `/sdcard/Download/`.
+- **Application errors:**  
+  Run the script directly from the terminal without `--quiet` to inspect the full traceback, or check `python3 rbx_finder.py --help`.
 
-⚖️ Disclaimer
-
-This project is intended for educational purposes, software diagnostics, file-format research, and authorized analysis.
-
-Users are responsible for complying with applicable laws, licenses, and permissions.
-
-Automated analysis does not guarantee complete or accurate results.
-
----
-
-👨‍💻 Credits
-
-Developed by MITTO & Olivia
-
-RBX-Finder / ORC V2
-
-GitHub
-
-https://github.com/MITTO-m4x/obf-db/
+</details>
 
 ---
 
-<p align="center">Analyze • Inspect • Document • Improve</p>
+## 📌 Notes & Disclaimer
+
+### Notes
+- Analysis results may vary depending on binary format, target architecture, compiler flags, and stripped metadata.
+- Automated analysis does not guarantee complete or 100% accurate results; always verify generated offsets before relying on them.
+- Certain features may behave differently depending on the host operating system.
+
+### ⚖️ Disclaimer
+> This project is intended strictly for **educational purposes, software diagnostics, file-format research, and authorized static binary analysis**. Users are solely responsible for complying with all applicable local and international laws, software licenses, and authorization permissions.
+
+---
+
+<div align="center">
+
+### 👨‍💻 Credits
+
+Developed by **MITTO & Olivia**  
+**RBX-Finder / ORC V2**
+
+[![GitHub](https://img.shields.io/badge/GitHub-MITTO--m4x%2Fobf--db-181717?style=flat-square&logo=github)](https://github.com/MITTO-m4x/obf-db/)
+
+*Analyze • Inspect • Document • Improve*
+
+</div>
