@@ -16,7 +16,7 @@ Open **Termux** and run the following commands to update your environment, insta
 ```bash
 pkg update && pkg upgrade -y
 pkg install git python -y
-git clone [https://github.com/MITTO-m4x/obf-db.git](https://github.com/MITTO-m4x/obf-db.git)
+git clone https://github.com/MITTO-m4x/obf-db.git https://github.com/MITTO-m4x/obf-db.git
 cd obf-db
 python3 rbx_finder.py -i
 ```
